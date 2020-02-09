@@ -35,9 +35,9 @@ export default function SearchBar() {
 		})
 		.then((characters) => {
 			context.setCharacters(characters.data.results);
-			console.log(context.characters);
 		})
 		.catch((err) => {
+			context.setCharacters([])
 			return err;
 		});
 	}
