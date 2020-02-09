@@ -2,6 +2,7 @@ import axios from "axios";
 import crypto from "crypto-js";
 import React, { useState } from "react";
 
+import {MyConsumer} from '../MyContext';
 import {MarvelLogo, SearchBarContainer, SearchInput, StyledForm} from "../styles/SearchBarStyles"
 
 export default function SearchBar() {
@@ -15,7 +16,7 @@ export default function SearchBar() {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		axios
-		.get(`http://gateway.marvel.com/v1/public/characters?name=${searchInput}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`)
+		.get(`http://gateway.marvel.com/v1/public/characters?nameStartsWith	=${searchInput}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`)
 		.then((res) => {
 			return res.data;
 		})
@@ -25,13 +26,33 @@ export default function SearchBar() {
 		});
 	}
 
+	const handleChange = (event, context) => {
+		setSearchInput(event.target.value)
+		axios
+		.get(`http://gateway.marvel.com/v1/public/characters?nameStartsWith	=${event.target.value}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`)
+		.then((res) => {
+			return res.data;
+		})
+		.then((characters) => {
+			context.setCharacters(characters.data.results);
+			console.log(context.characters);
+		})
+		.catch((err) => {
+			return err;
+		});
+	}
 
 	return (
-		<SearchBarContainer>
-			<MarvelLogo src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/MarvelLogo.svg/1200px-MarvelLogo.svg.png"/>
-			<StyledForm onSubmit={handleSubmit}>
-				<SearchInput type="text" placeholder="Buscar" value={searchInput} onChange={event => setSearchInput(event.target.value)}/>		
-			</StyledForm>
-		</SearchBarContainer>
+		<MyConsumer> 
+			{context =>
+				<SearchBarContainer>
+					<MarvelLogo src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/MarvelLogo.svg/1200px-MarvelLogo.svg.png"/>
+					<StyledForm onSubmit={handleSubmit}>
+						<SearchInput type="text" placeholder="Buscar" value={searchInput} onChange={(event)=>handleChange(event, context)}/>	
+					</StyledForm>
+				</SearchBarContainer>
+			}
+		</MyConsumer>
+		
 	);
 }
