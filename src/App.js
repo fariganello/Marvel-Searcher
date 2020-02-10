@@ -6,30 +6,42 @@ import Characters from "./views/Characters";
 import SearchBar from "./views/SearchBar";
 import SingleCharacter from "./views/SingleCharacter"
 
-const initialStore = {	characters: [],
-						comics: [],
-						singleCharacter: {},
-						setCharacters: () => {},
-						setSingleCharacter: () => {},
-						setComics: () => {} 
-					};
+
 
 function App() {
 	
+	const initialStore = {	characters: [],
+		comics: [1],
+		singleCharacter: {},
+		setCharacters: () => {},
+		setSingleCharacter: () => {},
+		setComics: () => {} 
+	};
 	const setCharacters = (characters) => {
-        setStore({ ...store, characters: characters });
+		console.log(store, "AAAAAAAAAAA")
+		setStore({ ...store, characters: characters });
+		console.log("AGREGANDO CHARACTERS", characters, store)
 	}
 	
 	const setSingleCharacter = (character) => {
-        setStore({ ...store, singleCharacter: character });
+		setStore({ ...store, singleCharacter: character });
+		console.log("AGREGANDO SINGLE CHARACTER", character, store)
 	}
 
 	const setComics = (comics) => {
-        setStore({ ...store, comics: comics });
+		console.log("ANTES", store)
+		const newStore = {...store}
+		newStore.comics = comics
+		setStore(newStore);
+		console.log("DESPUES", store)
     }
 	
 	const [store, setStore] = useState({...initialStore, setCharacters: setCharacters, setSingleCharacter: setSingleCharacter, setComics: setComics});
 	
+	
+	setTimeout(function(){ console.log("store in app 10s", store) }, 10000);
+
+
 	return (
 		<MyProvider value={store}>
 			<BrowserRouter>

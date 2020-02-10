@@ -3,8 +3,15 @@ import crypto from "crypto-js";
 import React, {useEffect} from "react";
 import {useParams} from "react-router-dom"
 
-import MyContext, {MyConsumer} from "../MyContext";
-import {CharacterImage, DetailCharacterSpan, InfoCharacterContainer, SingleCharacterContainer} from "../styles/SingleCharacterStyles"
+import MyContext from "../MyContext";
+import {    CharacterImage,
+            Comics,
+            ComicsContainer,
+            ComicsTitle,
+            DetailCharacterSpan,
+            InfoCharacterContainer,
+            SingleCharacterContainer
+        } from "../styles/SingleCharacterStyles"
 
 export default function SingleCharacter() {
     
@@ -14,9 +21,10 @@ export default function SingleCharacter() {
 	const hash = crypto.MD5(timeStamp + PRIVATE_APIKEY + PUBLIC_APIKEY)
 
     const {characterId} = useParams();
-    const {singleCharacter, setSingleCharacter} = React.useContext(MyContext)
+    const context = React.useContext(MyContext)
+    const {singleCharacter, setSingleCharacter, comics, setComics} = React.useContext(MyContext)
 
-console.log(singleCharacter)
+console.log(context)
 
     useEffect(()=>{
         axios
@@ -25,24 +33,50 @@ console.log(singleCharacter)
 			return res.data;
 		})
 		.then((character) => {
-            console.log(character)
 			setSingleCharacter(character.data.results[0]);
 		})
 		.catch((err) => {
 			return err;
-		});
+        });
+        
+        axios
+		.get(`http://gateway.marvel.com/v1/public/characters/${characterId}/comics?ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`)
+		.then((res) => {
+			return res.data;
+		})
+		.then((comics) => {
+            console.log("Comics", comics.data.results)
+            setComics(comics.data.results);
+		})
+		.catch((err) => {
+			return err;
+        });
     },[])
-    
+
     return (
-		singleCharacter.name?
-        <SingleCharacterContainer>
-            <CharacterImage src={`${singleCharacter.thumbnail.path}.${singleCharacter.thumbnail.extension}`} alt={singleCharacter.name}/>
-            <InfoCharacterContainer>
-                <DetailCharacterSpan><strong>Name: </strong>{singleCharacter.name}</DetailCharacterSpan>
-                <DetailCharacterSpan><strong>Description: </strong>{singleCharacter.description}</DetailCharacterSpan> 
-            </InfoCharacterContainer>
-            
-        </SingleCharacterContainer>	
+        singleCharacter.id?
+        <div>
+            <SingleCharacterContainer>
+                <CharacterImage src={`${singleCharacter.thumbnail.path}.${singleCharacter.thumbnail.extension}`} alt={singleCharacter.name}/>
+                <InfoCharacterContainer>
+                    <DetailCharacterSpan><strong>Name: </strong>{singleCharacter.name}</DetailCharacterSpan>
+                    <DetailCharacterSpan><strong>Description: </strong>{singleCharacter.description}</DetailCharacterSpan> 
+                </InfoCharacterContainer>      
+            </SingleCharacterContainer>	
+            {comics.id?
+            <ComicsContainer>
+                <ComicsTitle>Comics</ComicsTitle>
+                <Comics>
+                    {comics.map(comic => 
+                        <div key={comic.id}>
+                            <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt={comic.title}/>
+                            <span>{comic.title}</span>
+                        </div>
+                    )}
+                </Comics>
+            </ComicsContainer>
+            :""}
+        </div>
         :""
 	);
 }
