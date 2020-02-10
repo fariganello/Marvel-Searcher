@@ -5,6 +5,7 @@ import {useParams} from "react-router-dom"
 
 import MyContext from "../MyContext";
 import {    CharacterImage,
+            ComicImage,
             Comics,
             ComicsContainer,
             ComicsTitle,
@@ -21,10 +22,14 @@ export default function SingleCharacter() {
 	const hash = crypto.MD5(timeStamp + PRIVATE_APIKEY + PUBLIC_APIKEY)
 
     const {characterId} = useParams();
-    const context = React.useContext(MyContext)
-    const {singleCharacter, setSingleCharacter, comics, setComics} = React.useContext(MyContext)
+    const [ state, dispatch ] = React.useContext(MyContext)
+    const {comics, singleCharacter} = state
 
-console.log(context)
+    // const {singleCharacter, setSingleCharacter, comics, setComics} = React.useContext(MyContext)
+
+console.log(state, "SINGLE CHAR")
+console.log(singleCharacter, comics, "MOSTRAR")
+
 
     useEffect(()=>{
         axios
@@ -32,21 +37,35 @@ console.log(context)
 		.then((res) => {
 			return res.data;
 		})
-		.then((character) => {
-			setSingleCharacter(character.data.results[0]);
+		.then((res) => {
+            const singleCharacter = res.data.results[0]
+            console.log("SINGLEEEEEE")
+			dispatch({
+				type: 'SET_SINGLE_CHARACTER',
+				singleCharacter
+			});
+            
+            
+            // setSingleCharacter(character.data.results[0]);
 		})
 		.catch((err) => {
 			return err;
         });
-        
+
         axios
 		.get(`http://gateway.marvel.com/v1/public/characters/${characterId}/comics?ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`)
 		.then((res) => {
 			return res.data;
 		})
-		.then((comics) => {
-            console.log("Comics", comics.data.results)
-            setComics(comics.data.results);
+		.then((res) => {
+
+            const comics = res.data.results
+			dispatch({
+				type: 'SET_COMICS',
+				comics
+			});
+
+            // setComics(comics.data.results);
 		})
 		.catch((err) => {
 			return err;
@@ -54,8 +73,8 @@ console.log(context)
     },[])
 
     return (
-        singleCharacter.id?
         <div>
+            {singleCharacter.id?
             <SingleCharacterContainer>
                 <CharacterImage src={`${singleCharacter.thumbnail.path}.${singleCharacter.thumbnail.extension}`} alt={singleCharacter.name}/>
                 <InfoCharacterContainer>
@@ -63,13 +82,14 @@ console.log(context)
                     <DetailCharacterSpan><strong>Description: </strong>{singleCharacter.description}</DetailCharacterSpan> 
                 </InfoCharacterContainer>      
             </SingleCharacterContainer>	
-            {comics.id?
+            :""}
+            {comics.length?
             <ComicsContainer>
                 <ComicsTitle>Comics</ComicsTitle>
                 <Comics>
                     {comics.map(comic => 
                         <div key={comic.id}>
-                            <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt={comic.title}/>
+                            <ComicImage src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt={comic.title}/>
                             <span>{comic.title}</span>
                         </div>
                     )}
@@ -77,6 +97,5 @@ console.log(context)
             </ComicsContainer>
             :""}
         </div>
-        :""
 	);
 }

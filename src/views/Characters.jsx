@@ -6,9 +6,11 @@ import {CardContainer, CardImage, CharactersContainer} from "../styles/Character
 
 export default function Characters() {
 
-	const {characters} = React.useContext(MyContext)
+	const [ state ] = React.useContext(MyContext)
+	const { characters } = state;
 
 	return (
+		characters.length?
 		<CharactersContainer>
 			{characters.map(character => 
 				<Link to={`/characters/${character.id}`} key={character.id}>
@@ -18,6 +20,7 @@ export default function Characters() {
 					</CardContainer>
 				</Link>
 			)}
-		</CharactersContainer>		
+		</CharactersContainer>
+		:""		
 	);
 }

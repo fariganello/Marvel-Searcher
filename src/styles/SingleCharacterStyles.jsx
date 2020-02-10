@@ -6,6 +6,12 @@ export const CharacterImage = styled.img`
     object-fit: cover
 `;
 
+export const ComicImage = styled.img`
+width: 50px;
+margin: 30px;
+object-fit: cover
+`;
+
 export const Comics = styled.div`
 
 `;

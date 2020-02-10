@@ -8,8 +8,9 @@ import {MarvelLogo, SearchBarContainer, SearchInput, StyledForm} from "../styles
 
 export default function SearchBar() {
 	const [searchInput, setSearchInput] = useState("");
-	const context = React.useContext(MyContext)
-	const {setCharacters} = React.useContext(MyContext)
+	
+	const [ state, dispatch ] = React.useContext(MyContext)
+	
 	let history = useHistory();
 	
 	const PUBLIC_APIKEY = "f1e0fad14a51aa5012fe77652993a1b5"
@@ -18,40 +19,45 @@ export default function SearchBar() {
 	const hash = crypto.MD5(timeStamp + PRIVATE_APIKEY + PUBLIC_APIKEY)
 
 	const handleSubmit = (event) => {
-		event.preventDefault();
-		axios
-		.get(`http://gateway.marvel.com/v1/public/characters?nameStartsWith=${searchInput}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`)
-		.then((res) => {
-			return res.data;
-		})
-		.then((characters) => {
-			setCharacters(characters.data.results);
-		})
-		.catch((err) => {
-			//setCharacters([])
-			return err;
-		});
+	// 	event.preventDefault();
+	// 	axios
+	// 	.get(`http://gateway.marvel.com/v1/public/characters?nameStartsWith=${searchInput}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`)
+	// 	.then((res) => {
+	// 		return res.data;
+	// 	})
+	// 	.then((characters) => {
+	// 		setCharacters(characters.data.results);
+	// 	})
+	// 	.catch((err) => {
+	// 		//setCharacters([])
+	// 		return err;
+	// 	});
 	}
 
 	const handleChange = (event) => {
 		setSearchInput(event.target.value)
-		console.log(context, "ANTES FETCH PERSONAJES")
+		console.log(state, "ANTES FETCH PERSONAJES")
 
 		axios
 		.get(`http://gateway.marvel.com/v1/public/characters?nameStartsWith	=${event.target.value}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`)
 		.then((res) => {
 			return res.data;
 		})
-		.then((characters) => {
-			console.log(context, "ANTES SETCHAR")
-
-			setCharacters(characters.data.results);
-			console.log(context, "despues SETCHAR")
+		.then((res) => {
+			const characters = res.data.results
+			dispatch({
+				type: 'SET_CHARACTERS',
+				characters
+			});
 
 			history.push("/")
 		})
 		.catch((err) => {
-			//setCharacters([])
+			const characters = []
+			dispatch({
+				type: 'SET_CHARACTERS',
+				characters
+			});	
 			return err;
 		});
 	}
