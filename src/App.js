@@ -1,37 +1,19 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
-import {MyProvider} from './MyContext';
+import {MyProvider} from './store/store';
 import Characters from "./views/Characters";
 import SearchBar from "./views/SearchBar";
 import SingleCharacter from "./views/SingleCharacter"
+import {reducer, initialState} from "./reducers/reducer"
 
-const initialStore = {	characters: [],
-						comics: [],
-						singleCharacter: {},
-						setCharacters: () => {},
-						setSingleCharacter: () => {},
-						setComics: () => {} 
-					};
 
 function App() {
-	
-	const setCharacters = (characters) => {
-        setStore({ ...store, characters: characters });
-	}
-	
-	const setSingleCharacter = (character) => {
-        setStore({ ...store, singleCharacter: character });
-	}
 
-	const setComics = (comics) => {
-        setStore({ ...store, comics: comics });
-    }
-	
-	const [store, setStore] = useState({...initialStore, setCharacters: setCharacters, setSingleCharacter: setSingleCharacter, setComics: setComics});
+	const useMarvelState = useReducer(reducer, initialState);
 	
 	return (
-		<MyProvider value={store}>
+		<MyProvider value={useMarvelState}>
 			<BrowserRouter>
 				<div>
 					<SearchBar />

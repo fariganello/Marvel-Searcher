@@ -1,13 +1,15 @@
 import styled from "styled-components";
 
 export const MarvelLogo = styled.img`
-    width: 50px;
+  width: 50px;
 `;
 
 export const SearchBarContainer = styled.div`
-    display: flex;
-    align-items: center;
-    width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  width: 100vw;
 `;
 
 export const SearchInput = styled.input`
@@ -22,5 +24,5 @@ export const SearchInput = styled.input`
 `;
 
 export const StyledForm = styled.form`
-width: 100%;
+  width: 100%;
 `;
