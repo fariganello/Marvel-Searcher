@@ -34,8 +34,11 @@ console.log(singleCharacter, comics, "MOSTRAR")
 
 
     useEffect(()=>{
-        axios
-		.get(`http://gateway.marvel.com/v1/public/characters/${characterId}?ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`)
+        axios({
+			method:"get",
+            url:`http://gateway.marvel.com/v1/public/characters/${characterId}?ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`,
+            baseURL: "https://radiant-eyrie-53028.herokuapp.com/"
+        })
 		.then((res) => {
 			return res.data;
 		})
@@ -51,8 +54,11 @@ console.log(singleCharacter, comics, "MOSTRAR")
 			return err;
         });
 
-        axios
-		.get(`http://gateway.marvel.com/v1/public/characters/${characterId}/comics?ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`)
+        axios({
+			method:"get",
+            url:`http://gateway.marvel.com/v1/public/characters/${characterId}/comics?ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`,
+            baseURL: "https://radiant-eyrie-53028.herokuapp.com/"
+        })
 		.then((res) => {
 			return res.data;
 		})

@@ -22,8 +22,8 @@ export default function SearchBar() {
 		event.preventDefault();
 		axios({
 			method:"get",
-			url:`https://gateway.marvel.com/v1/public/characters?nameStartsWith	=${event.target.value}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`,
-		baseURL: "https://radiant-eyrie-53028.herokuapp.com/"
+			url:`http://gateway.marvel.com/v1/public/characters?nameStartsWith	=${event.target.value}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`,
+			baseURL: "https://radiant-eyrie-53028.herokuapp.com/"
 		})
 		.then((res) => {
 			return res.data;
@@ -50,8 +50,11 @@ export default function SearchBar() {
 	const handleChange = (event) => {
 		setSearchInput(event.target.value)
 
-		axios
-		.get(`http://gateway.marvel.com/v1/public/characters?nameStartsWith	=${event.target.value}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`)
+		axios({
+			method:"get",
+			 url: `http://gateway.marvel.com/v1/public/characters?nameStartsWith	=${event.target.value}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`,
+			 baseURL: "https://radiant-eyrie-53028.herokuapp.com/"
+		})
 		.then((res) => {
 			return res.data;
 		})
