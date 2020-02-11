@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom"
 
-import MyContext from '../MyContext';
+import MyContext from '../store/store';
 import {CardContainer, CardImage, CharactersContainer} from "../styles/CharactersStyles"
 
 export default function Characters() {

@@ -3,8 +3,10 @@ import crypto from "crypto-js";
 import React, {useEffect} from "react";
 import {useParams} from "react-router-dom"
 
-import MyContext from "../MyContext";
+import MyContext from "../store/store";
 import {    CharacterImage,
+            ComicCard,
+            ComicDesc,
             ComicImage,
             Comics,
             ComicsContainer,
@@ -44,9 +46,6 @@ console.log(singleCharacter, comics, "MOSTRAR")
 				type: 'SET_SINGLE_CHARACTER',
 				singleCharacter
 			});
-            
-            
-            // setSingleCharacter(character.data.results[0]);
 		})
 		.catch((err) => {
 			return err;
@@ -64,8 +63,6 @@ console.log(singleCharacter, comics, "MOSTRAR")
 				type: 'SET_COMICS',
 				comics
 			});
-
-            // setComics(comics.data.results);
 		})
 		.catch((err) => {
 			return err;
@@ -88,10 +85,10 @@ console.log(singleCharacter, comics, "MOSTRAR")
                 <ComicsTitle>Comics</ComicsTitle>
                 <Comics>
                     {comics.map(comic => 
-                        <div key={comic.id}>
+                        <ComicCard key={comic.id}>
                             <ComicImage src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt={comic.title}/>
-                            <span>{comic.title}</span>
-                        </div>
+                            <ComicDesc>{comic.title}</ComicDesc>
+                        </ComicCard>
                     )}
                 </Comics>
             </ComicsContainer>

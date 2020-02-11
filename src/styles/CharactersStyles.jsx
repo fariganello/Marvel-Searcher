@@ -15,9 +15,12 @@ export const CardImage = styled.img`
 `;
 
 export const CharactersContainer = styled.div`
+box-sizing: border-box;
+margin: 0;
+padding: 0;
 display: flex;
 flex-direction: row;
 flex-wrap: wrap;
-justify-content: space-between;
+justify-content: center;
 align-items: center;
 `;
