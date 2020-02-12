@@ -1,7 +1,7 @@
 import axios from "axios";
 import crypto from "crypto-js";
 import React, { useContext, useState } from "react";
-import {useHistory} from "react-router-dom"
+import {Link, useHistory} from "react-router-dom"
 
 import MyContext from '../store/store';
 import {MarvelLogo, SearchBarContainer, SearchInput, StyledForm} from "../styles/SearchBarStyles"
@@ -22,7 +22,7 @@ export default function SearchBar() {
 		event.preventDefault();
 		axios({
 			method:"get",
-			url:`https://gateway.marvel.com/v1/public/characters?nameStartsWith	=${event.target.value}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`,
+			url:`https://gateway.marvel.com/v1/public/characters?nameStartsWith=${event.target.value}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`,
 			baseURL: "https://radiant-eyrie-53028.herokuapp.com/"
 		})
 		.then((res) => {
@@ -79,7 +79,9 @@ export default function SearchBar() {
 
 	return (
 		<SearchBarContainer>
-			<MarvelLogo src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/MarvelLogo.svg/1200px-MarvelLogo.svg.png"/>
+			<Link to={"/"}>
+				<MarvelLogo src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/MarvelLogo.svg/1200px-MarvelLogo.svg.png"/>
+			</Link>
 			<StyledForm onSubmit={handleSubmit}>
 				<SearchInput type="text" placeholder="Buscar" value={searchInput} onChange={handleChange}/>	
 			</StyledForm>
