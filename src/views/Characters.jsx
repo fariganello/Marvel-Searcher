@@ -9,8 +9,6 @@ export default function Characters() {
 	const [ state ] = React.useContext(MyContext)
 	const { characters } = state;
 
-console.log(state)
-
 	return (
 		characters.length?
 		<CharactersContainer>
