@@ -5,11 +5,10 @@ export const MarvelLogo = styled.img`
 `;
 
 export const SearchBarContainer = styled.div`
-  box-sizing: border-box;
-  margin: 0;
   display: flex;
   align-items: center;
   width: 100vw;
+  margin: 10px;
 `;
 
 export const SearchInput = styled.input`

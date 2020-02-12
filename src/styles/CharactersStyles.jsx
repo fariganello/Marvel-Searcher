@@ -15,9 +15,7 @@ export const CardImage = styled.img`
 `;
 
 export const CharactersContainer = styled.div`
-box-sizing: border-box;
-margin: 0;
-padding: 0;
+margin: 10px;
 display: flex;
 flex-direction: row;
 flex-wrap: wrap;
