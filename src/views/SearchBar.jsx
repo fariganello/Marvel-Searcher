@@ -2,7 +2,7 @@ import crypto from "crypto-js";
 import React, { useState } from "react";
 import { Link } from "react-router-dom"
 
-import fetchCharacters from "../api"
+import {fetchCharacters} from "../api"
 import {MarvelLogo, SearchBarContainer, SearchInput, StyledForm} from "../styles/SearchBarStyles"
 
 export default function SearchBar() {
