@@ -83,8 +83,8 @@ function getClientEnvironment(publicUrl) {
     const dotenv = require('dotenv');
   
     const env = dotenv.config().parsed;
-  
-    const newKeys = Object.keys(env).reduce((prev, next) => {
+
+    const newKeys = (Object.keys(env)||[]).reduce((prev, next) => {
       prev[next] = env[next];
       return prev;
     }, {});
