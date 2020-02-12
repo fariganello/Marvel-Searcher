@@ -30,6 +30,7 @@ export const ComicImage = styled.img`
 export const Comics = styled.div`
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 `;
 
 export const ComicsContainer = styled.div`

@@ -17,21 +17,20 @@ import {    CharacterImage,
             SingleCharacterContainer
         } from "../styles/SingleCharacterStyles"
 
-export default function SingleCharacter() {
-    
-    const PUBLIC_APIKEY = "f1e0fad14a51aa5012fe77652993a1b5"
-	const PRIVATE_APIKEY = "5880a69ada84766a9985e06d0b6315cf6a9f7171" 
+export default function SingleCharacter() { 
+    const publicApiKey = process.env.PUBLIC_APIKEY;
+    const privateApiKey = process.env.PRIVATE_APIKEY;
 	const timeStamp = "1";
-	const hash = crypto.MD5(timeStamp + PRIVATE_APIKEY + PUBLIC_APIKEY)
+	const hash = crypto.MD5(timeStamp + privateApiKey + publicApiKey)
 
     const {characterId} = useParams();
     const [ state, dispatch ] = React.useContext(MyContext)
     const {comics, singleCharacter} = state
 
     useEffect(()=>{
-        const urlSingleCharacter = `https://gateway.marvel.com/v1/public/characters/${characterId}?ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`;
-        const urlComics = `https://gateway.marvel.com/v1/public/characters/${characterId}/comics?ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`;
-        const baseUrl = "https://radiant-eyrie-53028.herokuapp.com/";
+        const urlSingleCharacter = `https://gateway.marvel.com/v1/public/characters/${characterId}?ts=${timeStamp}&apikey=${publicApiKey}&hash=${hash}`;
+        const urlComics = `https://gateway.marvel.com/v1/public/characters/${characterId}/comics?ts=${timeStamp}&apikey=${publicApiKey}&hash=${hash}`;
+        const baseUrl = process.env.BASE_URL || "http://localhost:3000";
         
         fetchSingleCharacter(urlSingleCharacter, baseUrl, dispatch);
         fetchComics(urlComics, baseUrl, dispatch);
