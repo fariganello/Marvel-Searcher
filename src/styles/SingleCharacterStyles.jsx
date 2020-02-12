@@ -24,7 +24,7 @@ export const ComicDesc = styled.div`
 
 export const ComicImage = styled.img`
     width: 80px;
-    object-fit: cover
+    object-fit: cover;
 `;
 
 export const Comics = styled.div`
@@ -48,6 +48,7 @@ export const InfoCharacterContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 50%;
 `;
 
 export const SingleCharacterContainer = styled.div`
