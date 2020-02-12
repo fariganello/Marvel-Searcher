@@ -1,13 +1,17 @@
 import crypto from "crypto-js";
-import React, { useState } from "react";
-import { Link } from "react-router-dom"
+import React, { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom"
 
 import {fetchCharacters} from "../api"
+import MyContext from '../store/store';
 import {MarvelLogo, SearchBarContainer, SearchInput, StyledForm} from "../styles/SearchBarStyles"
 
 export default function SearchBar() {
 	const [searchInput, setSearchInput] = useState("");
-		
+
+	const [state, dispatch ] = useContext(MyContext)
+	let history = useHistory();
+	
 	const PUBLIC_APIKEY = "f1e0fad14a51aa5012fe77652993a1b5"
 	const PRIVATE_APIKEY = "5880a69ada84766a9985e06d0b6315cf6a9f7171" 
 	const timeStamp = "1";
@@ -17,14 +21,14 @@ export default function SearchBar() {
 		event.preventDefault();
 		const url = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${event.target.value}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`;
 		const baseUrl = "https://radiant-eyrie-53028.herokuapp.com/";
-		fetchCharacters(url, baseUrl);
+		fetchCharacters(url, baseUrl, dispatch, history);
 	}
 
 	const handleChange = (event) => {
 		setSearchInput(event.target.value)
 		const url = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${event.target.value}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`;
 		const baseUrl = "https://radiant-eyrie-53028.herokuapp.com/";
-		fetchCharacters(url, baseUrl);
+		fetchCharacters(url, baseUrl, dispatch, history);
 	}
 
 	return (

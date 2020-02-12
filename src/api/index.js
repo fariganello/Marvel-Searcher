@@ -1,13 +1,9 @@
 import axios from "axios";
-import { useContext } from "react";
-import { useHistory } from "react-router-dom";
 
-import MyContext from '../store/store';
+export const fetchCharacters = (url, baseUrl, dispatch, history) => {
 
-const [state, dispatch ] = useContext(MyContext)
-let history = useHistory();
 
-export const fetchCharacters = (url, baseUrl) => {
+
     axios({
         method:"get",
         url:url,
