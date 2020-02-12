@@ -1,0 +1,9 @@
+{
+    "build": {
+      "env": {
+        "BASE_URL": "@base-url",
+        "PUBLIC_APIKEY": "@public-apikey",
+        "PRIVATE_APIKEY": "@private-apikey"
+      }
+    }
+  }
