@@ -19,9 +19,6 @@ export default function SearchBar() {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		const url = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${event.target.value}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`;
-		const baseUrl = "https://radiant-eyrie-53028.herokuapp.com/";
-		fetchCharacters(url, baseUrl, dispatch, history);
 	}
 
 	const handleChange = (event) => {
