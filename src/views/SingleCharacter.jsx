@@ -27,12 +27,6 @@ export default function SingleCharacter() {
     const [ state, dispatch ] = React.useContext(MyContext)
     const {comics, singleCharacter} = state
 
-    // const {singleCharacter, setSingleCharacter, comics, setComics} = React.useContext(MyContext)
-
-console.log(state, "SINGLE CHAR")
-console.log(singleCharacter, comics, "MOSTRAR")
-
-
     useEffect(()=>{
         axios({
 			method:"get",
@@ -78,7 +72,7 @@ console.log(singleCharacter, comics, "MOSTRAR")
         <div>
             {singleCharacter.id?
             <SingleCharacterContainer>
-                <CharacterImage src={`'https'+${singleCharacter.thumbnail.path.slice(4)}.${singleCharacter.thumbnail.extension}`} alt={singleCharacter.name}/>
+                <CharacterImage src={`'https'+`${singleCharacter.thumbnail.path.slice(4)}.${singleCharacter.thumbnail.extension}`} alt={singleCharacter.name}/>
                 <InfoCharacterContainer>
                     <DetailCharacterSpan><strong>Name: </strong>{singleCharacter.name}</DetailCharacterSpan>
                     <DetailCharacterSpan><strong>Description: </strong>{singleCharacter.description}</DetailCharacterSpan> 
@@ -91,7 +85,7 @@ console.log(singleCharacter, comics, "MOSTRAR")
                 <Comics>
                     {comics.map(comic => 
                         <ComicCard key={comic.id}>
-                            <ComicImage src={`"https"+${comic.thumbnail.path.slice(4)}.${comic.thumbnail.extension}`} alt={comic.title}/>
+                            <ComicImage src={`"https"+`${comic.thumbnail.path.slice(4)}.${comic.thumbnail.extension}`} alt={comic.title}/>
                             <ComicDesc>{comic.title}</ComicDesc>
                         </ComicCard>
                     )}
