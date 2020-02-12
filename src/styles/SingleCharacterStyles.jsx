@@ -33,7 +33,7 @@ export const Comics = styled.div`
 `;
 
 export const ComicsContainer = styled.div`
-
+    margin: 10px;
 `;
 
 export const ComicsTitle = styled.div`
@@ -57,6 +57,7 @@ export const InfoCharacterContainer = styled.div`
 `;
 
 export const SingleCharacterContainer = styled.div`
+    margin: 10px;
     display:flex;
     flex-direction: row;
     justify-content: center;
