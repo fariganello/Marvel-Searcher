@@ -7,7 +7,7 @@ export const MarvelLogo = styled.img`
 export const SearchBarContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   margin: 10px;
 `;
 
