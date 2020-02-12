@@ -5,6 +5,7 @@ import {useParams} from "react-router-dom"
 
 import MyContext from "../store/store";
 import {    CharacterImage,
+            CharacterImageContainer,
             ComicCard,
             ComicDesc,
             ComicImage,
@@ -72,7 +73,9 @@ export default function SingleCharacter() {
         <div>
             {singleCharacter.id?
             <SingleCharacterContainer>
-                <CharacterImage src={'https'+`${singleCharacter.thumbnail.path.slice(4)}.${singleCharacter.thumbnail.extension}`} alt={singleCharacter.name}/>
+                <CharacterImageContainer>
+                    <CharacterImage src={'https'+`${singleCharacter.thumbnail.path.slice(4)}.${singleCharacter.thumbnail.extension}`} alt={singleCharacter.name}/>
+                </CharacterImageContainer>
                 <InfoCharacterContainer>
                     <DetailCharacterSpan><strong>Name: </strong>{singleCharacter.name}</DetailCharacterSpan>
                     <DetailCharacterSpan><strong>Description: </strong>{singleCharacter.description}</DetailCharacterSpan> 
