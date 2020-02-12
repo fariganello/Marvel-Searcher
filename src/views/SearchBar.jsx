@@ -2,6 +2,7 @@ import crypto from "crypto-js";
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom"
 
+import {BASE_URL, PRIVATE_APIKEY, PUBLIC_APIKEY } from "../constants"
 import {fetchCharacters} from "../api"
 import MyContext from '../store/store';
 import {MarvelLogo, SearchBarContainer, SearchInput, StyledForm} from "../styles/SearchBarStyles"
@@ -11,12 +12,10 @@ export default function SearchBar() {
 	const [, dispatch ] = useContext(MyContext)
 	let history = useHistory();
 	
-	const publicApiKey = process.env.PUBLIC_APIKEY;
-	const privateApiKey = process.env.PRIVATE_APIKEY;
+	// const PUBLIC_APIKEY = process.env.PUBLIC_APIKEY;
+	// const PRIVATE_APIKEY = process.env.PRIVATE_APIKEY;
 	const timeStamp = "1";
-	const hash = crypto.MD5(timeStamp + privateApiKey + publicApiKey)
-
-console.log(process.env.PUBLIC_APIKEY)
+	const hash = crypto.MD5(timeStamp + PRIVATE_APIKEY + PUBLIC_APIKEY)
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -24,8 +23,8 @@ console.log(process.env.PUBLIC_APIKEY)
 
 	const handleChange = (event) => {
 		setSearchInput(event.target.value)
-		const url = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${event.target.value}&ts=${timeStamp}&apikey=${publicApiKey}&hash=${hash}`;
-		const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+		const url = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${event.target.value}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`;
+		const baseUrl = BASE_URL || "http://localhost:3000";
 		fetchCharacters(url, baseUrl, dispatch, history);
 	}
 
