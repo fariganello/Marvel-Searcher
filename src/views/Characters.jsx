@@ -15,7 +15,7 @@ export default function Characters() {
 			{characters.map(character => 
 				<Link to={`/characters/${character.id}`} key={character.id}>
 					<CardContainer>
-						<CardImage src={`${character.thumbnail.path}.${character.thumbnail.extension}`} alt={character.name}/>
+						<CardImage src={'https'+`${character.thumbnail.path.slice(4)}.${character.thumbnail.extension}`} alt={character.name}/>
 						<span>{character.name}</span>
 					</CardContainer>
 				</Link>
