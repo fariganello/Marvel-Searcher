@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
+export const CharacterImageContainer = styled.div`
+    text-align: center;
+`;
+
 export const CharacterImage = styled.img`
     width: 300px;
+    margin: 30px;
     object-fit: cover;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
 `;
 
 export const ComicCard = styled.div`
