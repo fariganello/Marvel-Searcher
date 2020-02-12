@@ -8,14 +8,13 @@ import {MarvelLogo, SearchBarContainer, SearchInput, StyledForm} from "../styles
 
 export default function SearchBar() {
 	const [searchInput, setSearchInput] = useState("");
-
 	const [, dispatch ] = useContext(MyContext)
 	let history = useHistory();
 	
-	const PUBLIC_APIKEY = "f1e0fad14a51aa5012fe77652993a1b5"
-	const PRIVATE_APIKEY = "5880a69ada84766a9985e06d0b6315cf6a9f7171" 
+	const publicApiKey = process.env.PUBLIC_APIKEY;
+	const privateApiKey = process.env.PRIVATE_APIKEY;
 	const timeStamp = "1";
-	const hash = crypto.MD5(timeStamp + PRIVATE_APIKEY + PUBLIC_APIKEY)
+	const hash = crypto.MD5(timeStamp + privateApiKey + publicApiKey)
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -23,8 +22,8 @@ export default function SearchBar() {
 
 	const handleChange = (event) => {
 		setSearchInput(event.target.value)
-		const url = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${event.target.value}&ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`;
-		const baseUrl = "https://radiant-eyrie-53028.herokuapp.com/";
+		const url = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${event.target.value}&ts=${timeStamp}&apikey=${publicApiKey}&hash=${hash}`;
+		const baseUrl = process.env.BASE_URL || "http://localhost:3000";
 		fetchCharacters(url, baseUrl, dispatch, history);
 	}
 
