@@ -20,6 +20,9 @@ export const ComicCard = styled.div`
 export const ComicDesc = styled.div`
     font-size: 0.7em;
     margin: 0,auto;
+    @media (max-width: 768px) {
+        text-align: center;
+    }
 `;
 
 export const ComicImage = styled.img`
