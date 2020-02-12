@@ -1,8 +1,8 @@
-import axios from "axios";
 import crypto from "crypto-js";
 import React, {useEffect} from "react";
 import {useParams} from "react-router-dom"
 
+import { fetchComics, fetchSingleCharacter } from "../api"
 import MyContext from "../store/store";
 import {    CharacterImage,
             CharacterImageContainer,
@@ -29,44 +29,12 @@ export default function SingleCharacter() {
     const {comics, singleCharacter} = state
 
     useEffect(()=>{
-        axios({
-			method:"get",
-            url:`https://gateway.marvel.com/v1/public/characters/${characterId}?ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`,
-            baseURL: "https://radiant-eyrie-53028.herokuapp.com/"
-        })
-		.then((res) => {
-			return res.data;
-		})
-		.then((res) => {
-            const singleCharacter = res.data.results[0]
-			dispatch({
-				type: 'SET_SINGLE_CHARACTER',
-				singleCharacter
-			});
-		})
-		.catch((err) => {
-			return err;
-        });
-
-        axios({
-			method:"get",
-            url:`https://gateway.marvel.com/v1/public/characters/${characterId}/comics?ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`,
-            baseURL: "https://radiant-eyrie-53028.herokuapp.com/"
-        })
-		.then((res) => {
-			return res.data;
-		})
-		.then((res) => {
-
-            const comics = res.data.results
-			dispatch({
-				type: 'SET_COMICS',
-				comics
-			});
-		})
-		.catch((err) => {
-			return err;
-        });
+        const urlSingleCharacter = `https://gateway.marvel.com/v1/public/characters/${characterId}?ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`;
+        const urlComics = `https://gateway.marvel.com/v1/public/characters/${characterId}/comics?ts=${timeStamp}&apikey=${PUBLIC_APIKEY}&hash=${hash}`;
+        const baseUrl = "https://radiant-eyrie-53028.herokuapp.com/";
+        
+        fetchSingleCharacter(urlSingleCharacter, baseUrl, dispatch);
+        fetchComics(urlComics, baseUrl, dispatch);
     },[])
 
     return (
