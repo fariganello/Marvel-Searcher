@@ -72,7 +72,7 @@ export default function SingleCharacter() {
         <div>
             {singleCharacter.id?
             <SingleCharacterContainer>
-                <CharacterImage src={`'https'+`${singleCharacter.thumbnail.path.slice(4)}.${singleCharacter.thumbnail.extension}`} alt={singleCharacter.name}/>
+                <CharacterImage src={'https'+`${singleCharacter.thumbnail.path.slice(4)}.${singleCharacter.thumbnail.extension}`} alt={singleCharacter.name}/>
                 <InfoCharacterContainer>
                     <DetailCharacterSpan><strong>Name: </strong>{singleCharacter.name}</DetailCharacterSpan>
                     <DetailCharacterSpan><strong>Description: </strong>{singleCharacter.description}</DetailCharacterSpan> 
@@ -85,7 +85,7 @@ export default function SingleCharacter() {
                 <Comics>
                     {comics.map(comic => 
                         <ComicCard key={comic.id}>
-                            <ComicImage src={`"https"+`${comic.thumbnail.path.slice(4)}.${comic.thumbnail.extension}`} alt={comic.title}/>
+                            <ComicImage src={"https"+`${comic.thumbnail.path.slice(4)}.${comic.thumbnail.extension}`} alt={comic.title}/>
                             <ComicDesc>{comic.title}</ComicDesc>
                         </ComicCard>
                     )}
