@@ -16,6 +16,8 @@ export default function SearchBar() {
 	const timeStamp = "1";
 	const hash = crypto.MD5(timeStamp + privateApiKey + publicApiKey)
 
+console.log(process.env.PUBLIC_APIKEY)
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
 	}
