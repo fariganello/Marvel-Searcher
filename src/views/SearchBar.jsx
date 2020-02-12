@@ -9,7 +9,7 @@ import {MarvelLogo, SearchBarContainer, SearchInput, StyledForm} from "../styles
 export default function SearchBar() {
 	const [searchInput, setSearchInput] = useState("");
 
-	const [state, dispatch ] = useContext(MyContext)
+	const [dispatch ] = useContext(MyContext)
 	let history = useHistory();
 	
 	const PUBLIC_APIKEY = "f1e0fad14a51aa5012fe77652993a1b5"
