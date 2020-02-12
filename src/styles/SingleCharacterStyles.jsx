@@ -20,9 +20,6 @@ export const ComicCard = styled.div`
 export const ComicDesc = styled.div`
     font-size: 0.7em;
     margin: 0,auto;
-    @media (max-width: 768px) {
-        text-align: center;
-    }
 `;
 
 export const ComicImage = styled.img`
@@ -52,6 +49,11 @@ export const InfoCharacterContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     width: 50%;
+    @media (max-width: 768px) {
+        text-align: center;
+        width: 100%;
+        margin: 10px;
+    }
 `;
 
 export const SingleCharacterContainer = styled.div`
