@@ -1,12 +1,10 @@
 import styled from "styled-components";
 
 export const CharacterImage = styled.img`
-    width: 300px;
-    margin: 30px;
     object-fit: cover;
-`;
-
-export const CharacterImageContainer = styled.div`
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     width: 50%;
 `;
 
